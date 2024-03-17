@@ -1,4 +1,4 @@
-# Blended RAG: Improving RAG Accuracy with Semantic Search
+# Blended RAG: Improving RAG Accuracy with Semantic Search & Hybrid Queries
 Code base for the paper "Blended RAG: Improving RAG (Retriever-Augmented Generation) Accuracy with Semantic Search and Hybrid Query-Based Retrievers"
 Paper Link- 
 
