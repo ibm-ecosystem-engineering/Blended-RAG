@@ -10,8 +10,7 @@ Retrieval-Augmented Generation (RAG) is a prevalent approach to infuse a private
 
 
 ### Results 
-SERM -> Sparse EncodeR Retriever Model
-#### 1. Reteriver Accuracy 
+#### 1. Retriever Accuracy 
 The following section encapsulates the retrieval accuracy of our evaluative approach, quantified by Top-k metrics where \( k \in \{5, 10, 20\} \), across various datasets:
 \begin{enumerate}
     \item NQ (Natural Questions) dataset
