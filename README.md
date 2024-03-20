@@ -79,3 +79,9 @@ Distinctively, our Blended RAG approach has not undergone training on any relate
 | SERM + Best Field  | 54.96 | 65.79 |
 | KNN + Match Query   | 57.63 | 68.4  |
 | KNN + Best Field    | 57.63 | 68.4  |
+
+
+
+
+# Disclaimer
+ The content may include systems & methods pending patent with the USPTO and protected under US Patent Laws. In case of any questions, please reach out to kunal@ibm.com.
