@@ -5,12 +5,12 @@ Paper Link-
 ### Abstract
 Retrieval-Augmented Generation (RAG) is a prevalent approach to infuse a private knowledge base of documents with Large Language Models (LLM) to build Generative Q\&A (Question-Answering) systems. However, RAG accuracy becomes increasingly challenging as the corpus of documents scales up; with Retrievers playing an outsized role in the overall RAG accuracy by extracting the most relevant document from the corpus to provide context to the LLM. In this paper, we propose the method of leveraging semantic search techniques such as Dense Vector indexes and Sparse Encoder Based indexes, blended with hybrid query strategies. Our study achieve better retrieval results and sets new benchmarks for IR (Information Retrieval) datasets like NQ and TREC-COVID datasets. We further extend such a 'Blended Retriever' to RAG system, to demonstrate far superior results on Generative Q\&A datasets like SQUAD, even surpassing fine-tuning performance.
 
-## System Architecture 
+## Scheme of Creating Blended Retrievers using Semantic Search with Hybrid Queries
 <img src ="image/image1.png" />
 
 
 ## Results 
-#### 1. Retriever Accuracy 
+### 1. Retriever Accuracy 
 The following section encapsulates the retrieval accuracy of our evaluative approach, quantified by Top-k metrics where \( k \in \{5, 10, 20\} \), across various datasets:
 \begin{enumerate}
     \item NQ (Natural Questions) dataset
@@ -19,8 +19,6 @@ The following section encapsulates the retrieval accuracy of our evaluative appr
     \item CoQA (Conversational Question Answering)
 \end{enumerate}
 
-
-It can be concluded from the results that 'Blended Retriever' offers better accuracy than current methods across all the datasets. Sparse EncodeR Retriever Model (SERM) Based index with Best field queries often given best results with 88\% top-5 accuracy for NQ-Dataset and 94\% on TREC-Covid. The numbers increase for Top-10 and Top-20 accuracy. Below tables show all these results.
 
 ##### Top-5 Accuracy
 | Top-5 retrieval accuracy | BM25 + Match Query | BM25+ Best Field | KNN + Match Query | KNN + Best Field | SERM + Match Query | SERM + Best Field |
@@ -55,11 +53,27 @@ It can be concluded from the results that 'Blended Retriever' offers better accu
 
 <img src ="image/image11.png">
 
-#### 2.  Blended RAG Accuracy
+It can be concluded from the results that 'Blended Retriever' offers better accuracy than current methods across all the datasets. Sparse EncodeR Retriever Model (SERM) Based index with Best field queries often given best results with 88\% top-5 accuracy for NQ-Dataset and 94\% on TREC-Covid. The numbers increase for Top-10 and Top-20 accuracy. Below tables show all these results.
 
-Distinctively, our Blended RAG approach has not undergone training on any related corpora. It harnesses an optimized amalgamation of field selections, query formulations, indices, and Large Language Models (LLMs) to render the most precise responses possible.  We used FlanT5-XXL for this pipeline. Consequently, the Blended RAG showcases enhanced performance in the RAG use case, even without dataset-specific fine-tuning. This characteristic renders it particularly advantageous for large enterprise datasets, where fine-tuning may be impractical or unfeasible, underscoring this research's principal application. 
+### Retriever Benchmarking using NDCG@10 Metric
 
-##### 2.1  NQdataset
+| Dataset    | Model/Pipeline | NDCG@10 |
+|------------|----------------|---------|
+| Trec-covid | COCO-DR Large  | 0.804   |
+| Trec-covid | Blended RAG    | 0.87    |
+| NQ dataset | monoT5-3B      | 0.633   |
+| NQ dataset | Blended RAG    | 0.67    |
+
+Blended RAG performs better than the existing benchmark on both Trec-covid and NQ dataset.
+
+### 2.  Blended RAG Accuracy
+
+Distinctively, our Blended RAG approach has not undergone training on any related corpora. It harnesses an optimized amalgamation of field selections, query formulations, indices, and Large Language Models (LLMs) to render the most precise responses possible.  We used FlanT5-XXL(11B) for this pipeline. Consequently, the Blended RAG showcases enhanced performance in the RAG use case, even without dataset-specific fine-tuning. This characteristic renders it particularly advantageous for large enterprise datasets, where fine-tuning may be impractical or unfeasible, underscoring this research's principal application. 
+
+##### 2.1  NQ Dataset
+
+Evaluation of various queries for RAG pipeline on the NQ dataset.
+
 | Query Types         | EM    | F1    | blue_score | meteor_score | rouge_score | sentence_similarity | sim_hash | perplexity_score | bleurt_score1 | bert_score |
 | ------------------- | ----- | ----- | ---------- | ------------ | ----------- | ------------------- | -------- | ---------------- | ------------- | ---------- |
 | BM25 + Match Query  | 32.91 | 40.4  | 3.81       | 33.47        | 42.65       | 57.47               | 18.95    | 3.15             | 27.73         | 6.11       |
@@ -71,6 +85,20 @@ Distinctively, our Blended RAG approach has not undergone training on any relate
 
 #### 2.2 Squad Dataset
 
+##### Evaluation of the RAG Pipeline on the SquAD dataset.
+
+| Model/Pipeline | EM     | F1    | Top-5 | Top-20 |
+|----------------|--------|-------|-------|--------|
+| RAG-original   | 28.12  | 39.42 | 59.64 | 72.38  |
+| RAG-end2end    | 40.02  | 52.63 | 75.79 | 85.57  |
+| Blended RAG    | 57.63  | 68.4  | 94.89 | 98.58  |
+
+Blended RAG outperforms the existing RAG systems.
+
+
+###### Evaluation of various queries for RAG pipeline on the SquAD dataset.
+
+
 | Query Types         | EM    | F1    |
 | ------------------- | ----- | ----- |
 | BM25 + Match Query  | 56.07 | 67.12 |
@@ -81,12 +109,14 @@ Distinctively, our Blended RAG approach has not undergone training on any relate
 | KNN + Best Field    | 57.63 | 68.4  |
 
 
-### Features
-- **es_evaluation_rag.py**: This script is used to run the compelete rag_pipeline and evalute the respective matrix.
+### Code
+- **evaluation_blended_rag.py**: This script is used to evaluate the Blended RAG pipeline and generate the results.
 
-- **es_evaluation.py**: This script runs the retrieved data from the index and evaluates the results.
+- **evaluation_charts.py**: The evaluation results were generated by `evaluation_retrieval.py` for retriever and `evaluation_blended_rag.py` for the Blended RAG pipeline. This notebook uses those results to generate the charts published in the paper.
 
-- **es_indexing.py**: This script is used to create the index.
+- **evaluation_retrieval.py**: This script is used to evaluate the retrieval methods and generate the results.
+
+- **indexing.py**: This script is used to create the index.
 
 
 ### Input 
