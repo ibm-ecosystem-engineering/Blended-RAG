@@ -81,7 +81,7 @@ Distinctively, our Blended RAG approach has not undergone training on any relate
 | KNN + Best Field    | 57.63 | 68.4  |
 
 
-## Features
+### Features
 - **es_evaluation_rag.py**: This script is used to run the compelete rag_pipeline and evalute the respective matrix.
 
 - **es_evaluation.py**: This script runs the retrieved data from the index and evaluates the results.
@@ -89,7 +89,7 @@ Distinctively, our Blended RAG approach has not undergone training on any relate
 - **es_indexing.py**: This script is used to create the index.
 
 
-### 2. Input 
+### Input 
 This module uses various inputs, such as mapping and search_query, to index and search the queries at the index.
 
 - **mapping/**: Contains mapping files with respective BM25, KNN and Sparse_Encoder.
