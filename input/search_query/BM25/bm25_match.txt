@@ -1,0 +1,9 @@
+{
+    "query": {
+            "match": {
+            "content": {
+                "query": question
+            }
+            }
+        }
+}

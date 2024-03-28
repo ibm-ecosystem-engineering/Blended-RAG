@@ -80,14 +80,30 @@ def index_data(df_docs,source,index_name,index_name_knn):
         print(response)           
 
 
+
 ## Example Index name
 index_name_knn = 'research_index_knn'
 index_name = "research_index_bm25"
+index_name_elser = 'research_index_elser'
 
+## Create Index BM25
+mapping = ""
+with open('./input/mapping/bm25.txt', 'r') as file:
+    mapping = file.read().rstrip()
+create_index(index_name,mapping)
+
+with open('./input/mapping/knn.txt', 'r') as file:
+    mapping = file.read().rstrip()
+create_index(index_name_knn,mapping)
+
+with open('./input/mapping/elser.txt', 'r') as file:
+    mapping = file.read().rstrip()
+create_index(index_name_elser,mapping)
+
+## Define folder name 
 doc_folder_msmarco = '/Users/abhilashamangal/Documents/Semantic Search/data/msmarco/'
 files_msmarco = get_all_files(doc_folder_msmarco)
 df_corpus = pd.read_json(files_msmarco[2],lines=True)
 
-print("Helooo my time---")
 source ="msmarco"
-index_data(df_corpus,source)
+index_data(df_corpus,source,index_name,index_name_knn)

@@ -1,0 +1,5 @@
+{"query" : {"multi_match": {
+                "query": question, 
+                "type": "most_fields",
+                "fields": ["content", "title"]
+                }}}

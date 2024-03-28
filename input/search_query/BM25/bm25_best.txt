@@ -1,0 +1,6 @@
+{"query" : {"multi_match": {
+                "query": question, 
+                "type": "best_fields",
+                "fields": ["content", "title"],
+                "tie_breaker":0.3
+                }}}

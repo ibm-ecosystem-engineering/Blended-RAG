@@ -1,0 +1,70 @@
+index_mapping = {
+    "settings" :{
+    "number_of_replicas": 0,
+        "number_of_shards": 1,
+        "refresh_interval": "1m",
+        "analysis": {
+            "filter": {
+                "possessive_english_stemmer": {
+                    "type": "stemmer",
+                    "language": "possessive_english"
+                },
+                "light_english_stemmer": {
+                    "type": "stemmer",
+                    "language": "light_english"
+                },
+                "english_stop": {
+                    "ignore_case": "true",
+                    "type": "stop",
+                    "stopwords": ["a", "about", "all", "also", "am", "an", "and", "any", "are", "as", "at",
+                                  "be", "been", "but", "by", "can", "de", "did", "do", "does", "for", "from",
+                                  "had", "has", "have", "he", "her", "him", "his", "how", "if", "in", "into",
+                                  "is", "it", "its", "more", "my", "nbsp", "new", "no", "non", "not", "of",
+                                  "on", "one", "or", "other", "our", "she", "so", "some", "such", "than",
+                                  "that", "the", "their", "then", "there", "these", "they", "this", "those",
+                                  "thus", "to", "up", "us", "use", "was", "we", "were", "what", "when", "where",
+                                  "which", "while", "why", "will", "with", "would", "you", "your", "yours"]
+                }
+            },
+            "analyzer": {
+                "text_en_no_stop": {
+                    "filter": [
+                        "lowercase",
+                        "possessive_english_stemmer",
+                        "light_english_stemmer"
+                    ],
+                    "tokenizer": "standard"
+                },
+                "text_en_stop": {
+                    "filter": [
+                        "lowercase",
+                        "possessive_english_stemmer",
+                        "english_stop",
+                        "light_english_stemmer"
+                    ],
+                    "tokenizer": "standard"
+                },
+                "whitespace_lowercase": {
+                    "tokenizer": "whitespace",
+                    "filter": [
+                        "lowercase"
+                    ]
+                }
+            },
+            "normalizer": {
+                "keyword_lowercase": {
+                    "filter": [
+                        "lowercase"
+                    ]
+                }
+            }
+        }
+    },
+    "mappings": {
+        "properties": {
+            "id": {"type": "text"},
+            "story": {"type": "text"},
+            "source": {"type": "text"}
+        }
+    }
+}

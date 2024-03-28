@@ -36,7 +36,7 @@ def get_all_files(folder_name):
     return file_path_list
 
 
-## Search in BM25 index
+## Search in BM25 index and ELSER index
 def processESIndex(df_questions,search_query,index_name):
     for ind in df_questions.index:
         print("Processsing -----",ind)
@@ -87,3 +87,19 @@ def processESIndex_Knn(df_questions,search_query,index_name):
         print ("DOC Score:", flag)
         df_questions['model_op_kNN'][ind] = flag
     return df_questions
+
+
+## Read the file
+search_query=""
+with open('./input/search_query/BM25/bm25_best.txt', 'r') as file:
+    search_query = file.read().rstrip()
+
+## If you need to replace any file or  other query basis of Your index you can use the respective folders
+index_name ="research_index_bm25"
+df_questions =pd.read_csv("input question file")
+
+## BM25 and ELSER
+processESIndex(df_questions,search_query,index_name)
+
+## KNN
+processESIndex_Knn(df_questions,search_query,index_name)

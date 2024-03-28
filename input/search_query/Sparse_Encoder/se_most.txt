@@ -1,0 +1,24 @@
+{
+          "query": {
+            "bool": { 
+              "should": [
+                {
+                  "text_expansion": {
+                    "ml.tokens": {
+                      "model_text":question,
+                      "model_id": ".elser_model_1"
+                    }
+                  }
+                }
+              ],
+               "must": {
+                "multi_match" : {
+                "query":question,
+                "type":"most_fields",
+                "fields":[ "title", "content"]
+            }
+            }
+            }
+              },
+          "min_score": 1 
+        }

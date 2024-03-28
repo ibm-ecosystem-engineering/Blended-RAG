@@ -261,7 +261,7 @@ def processESIndex_RAG(df_squad,index,search_query2):
                 for j in range(len(qas)):
                     gold_answer = qas[j]['answers'][0]['text']
                     question = qas[j]['question']
-                    response = es_new.search(
+                    response = es_client.search(
                     index=index,
                     body=search_query2,
                     size=1  # Set the number of documents to retrieve per scroll
@@ -273,7 +273,7 @@ def processESIndex_RAG(df_squad,index,search_query2):
                         if gold_answer in doc['_source']['story']:
                             context = doc['_source']['story']
                             ans = process_squad(context,question)
-                            value = compute_exact(gold_answer,ans)
+                            value = compute_exact_match_ratio(gold_answer,ans)
                             count_value = count_value+value
         
                             value_f1 = compute_f1(gold_answer,ans)
@@ -320,3 +320,15 @@ def processESIndex_RAG(df_squad,index,search_query2):
     print("Avg perplexity_score_count Accuracy",perplexity_score_count/question_count)
     print("Avg bleurt_score1_count Accuracy",bleurt_score1_count/question_count)
     print("Avg bert_score1_count Accuracy",bert_score1_count/question_count)
+
+
+## Read the file
+search_query=""
+with open('./input/search_query/BM25/bm25_best.txt', 'r') as file:
+    search_query = file.read().rstrip()
+
+## If you need to replace any file or  other query basis of Your index you can use the respective folders
+index_name ="research_index_bm25"
+df_questions =pd.read_csv("input question file")
+
+processESIndex_RAG(df_questions,index_name,search_query)

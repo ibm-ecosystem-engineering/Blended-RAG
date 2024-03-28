@@ -1,0 +1,19 @@
+{
+          "query": {
+           "multi_match" : {
+              "query":question,
+                "type":"cross_fields",
+                "fields":[ "content", "title"],
+                "tie_breaker": 0.3
+
+            }
+          },
+          "knn": {
+            "field": "content_embedding",
+            "query_vector": content_embedding,
+            "k": 10,
+            "num_candidates": 100,
+             "boost": 10
+          },
+          #"size": 5
+        }
