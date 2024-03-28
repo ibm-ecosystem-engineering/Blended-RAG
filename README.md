@@ -9,7 +9,7 @@ Retrieval-Augmented Generation (RAG) is a prevalent approach to infuse a private
 <img src ="image/image1.png" />
 
 
-### Results 
+## Results 
 #### 1. Retriever Accuracy 
 The following section encapsulates the retrieval accuracy of our evaluative approach, quantified by Top-k metrics where \( k \in \{5, 10, 20\} \), across various datasets:
 \begin{enumerate}
@@ -80,6 +80,20 @@ Distinctively, our Blended RAG approach has not undergone training on any relate
 | KNN + Match Query   | 57.63 | 68.4  |
 | KNN + Best Field    | 57.63 | 68.4  |
 
+
+## Features
+- **es_evaluation_rag.py**: This script is used to run the compelete rag_pipeline and evalute the respective matrix.
+
+- **es_evaluation.py**: This script runs the retrieved data from the index and evaluates the results.
+
+- **es_indexing.py**: This script is used to create the index.
+
+
+### 2. Input 
+This module uses various inputs, such as mapping and search_query, to index and search the queries at the index.
+
+- **mapping/**: Contains mapping files with respective BM25, KNN and Sparse_Encoder.
+- **search_query/**: A collection of search_queries used across different evaluation tasks.
 
 
 
