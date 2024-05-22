@@ -1,0 +1,17 @@
+{
+            "query": {
+              "match": {
+                "content": {
+                  "query": question
+                }
+              }
+            },
+          "knn": {
+            "field": "content_embedding",
+            "query_vector": content_embedding,
+            "k": 10,
+            "num_candidates": 100,
+             "boost": 10
+          }
+          #"size": 10
+        }
