@@ -92,11 +92,13 @@ with open('./input/mapping/bm25.txt', 'r') as file:
     mapping = file.read().rstrip()
 create_index(index_name,mapping)
 
+## Create Index Knn
 with open('./input/mapping/knn.txt', 'r') as file:
     mapping = file.read().rstrip()
 create_index(index_name_knn,mapping)
 
-with open('./input/mapping/elser.txt', 'r') as file:
+## Create Index Sparse Encoder for ELSER V1 model
+with open('./input/mapping/sparse_encoder.txt', 'r') as file:
     mapping = file.read().rstrip()
 create_index(index_name_elser,mapping)
 
